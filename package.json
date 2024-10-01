@@ -6,10 +6,15 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "db-types": "SUPABASE_ACCESS_TOKEN='sbp_5e4213cb58c94014c23213405916eb483329437d' supabase gen types typescript --project-id mngrygrvfqweftpfxmly --schema public,next_auth  > ./src/types/db.d.ts"
   },
   "dependencies": {
+    "@auth/supabase-adapter": "^1.5.3",
+    "@supabase/supabase-js": "^2.45.4",
+    "jose": "^5.9.3",
     "next": "14.2.13",
+    "next-auth": "^5.0.0-beta.22",
     "react": "^18",
     "react-dom": "^18"
   },
