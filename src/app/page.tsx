@@ -2,10 +2,10 @@ import { auth, signIn, signOut } from '@/utils/auth/auth';
 import Image from 'next/image';
 
 export default async function Home() {
-  const user = await auth();
+  const session = await auth();
   return (
     <div className="flex h-screen items-center justify-center">
-      {!user && (
+      {!session && (
         <form
           action={async () => {
             'use server';
@@ -16,11 +16,11 @@ export default async function Home() {
         </form>
       )}
 
-      {user && (
+      {session && (
         <div>
-          <p>Hello, {user.user.name}</p>
-          {user.user.image && (
-            <Image src={user.user.image} alt="user" className="rounded-full" width={100} height={100} />
+          <p>Hello, {session.user.name}</p>
+          {session.user.image && (
+            <Image src={session.user.image} alt="user" className="rounded-full" width={100} height={100} />
           )}
           <form
             action={async () => {
