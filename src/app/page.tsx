@@ -1,35 +1,19 @@
-import { auth, signIn, signOut } from '@/utils/auth/auth';
-import Image from 'next/image';
+import { auth } from '@/utils/auth/auth';
+import Chatbox from '@/app/components/chatbox';
 
 export default async function Home() {
-  const session = await auth();
+  const sesstion = await auth();
   return (
-    <div className="flex h-screen items-center justify-center">
-      {!session && (
-        <form
-          action={async () => {
-            'use server';
-            await signIn('linkedin');
-          }}
-        >
-          <button type="submit">Sign in</button>
-        </form>
-      )}
-
-      {session && (
-        <div>
-          <p>Hello, {session.user.name}</p>
-          {session.user.image && (
-            <Image src={session.user.image} alt="user" className="rounded-full" width={100} height={100} />
-          )}
-          <form
-            action={async () => {
-              'use server';
-              await signOut();
-            }}
-          >
-            <button type="submit">Sign Out</button>
-          </form>
+    <div className="flex h-screen flex-col items-start">
+      <div className="p-8">
+        <div className="mx-auto max-w-4xl">
+          <h1 className="mb-2 text-3xl font-bold">Welcome to RealChat</h1>
+          {sesstion && <p className="text-xl">Hello, {sesstion.user.name}! Ready to connect?</p>}
+        </div>
+      </div>
+      {sesstion && (
+        <div className="px-8">
+          <Chatbox />
         </div>
       )}
     </div>

@@ -1,7 +1,11 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
-import './globals.css';
+import '@/app/globals.css';
 import { SessionProvider } from 'next-auth/react';
+import Navbar from '@/components/navbar';
+import { signOut } from '@/utils/auth/auth';
+import { redirect } from 'next/navigation';
+import { revalidatePath } from 'next/cache';
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -26,8 +30,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <SessionProvider>{children}</SessionProvider>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} flex h-screen flex-col bg-gray-100 antialiased dark:bg-gray-900`}
+      >
+        <SessionProvider>
+          <Navbar />
+          {children}
+        </SessionProvider>
       </body>
     </html>
   );
